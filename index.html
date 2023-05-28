@@ -7,9 +7,11 @@
 </head>
 <body>
     <canvas id="myCanvas"></canvas>
-    <button id="refreshButton" onclick="setEnd()">reload</button>
-    <input id="seedInput"></input>
-    <p id="seedText"></p>
+    <div id="interface">
+        <button id="refreshButton" onclick="setEnd()"></button>
+        <input id="seedInput" maxlength="10" type="number"></input>
+        <p id="seedText"></p>
+    </div>
     <script src="index.js" onload="main()"></script>
 </body>
 </html>
