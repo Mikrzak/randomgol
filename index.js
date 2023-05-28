@@ -1,9 +1,19 @@
 var end = false;
 var drawLoopInterval;
+var wait, origSeed;
 
 function setEnd(){
   end = true;
 }
+
+function copySeed(){
+  navigator.clipboard.writeText(origSeed);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  wait = 100;
+  main();
+}, false);
 
 function main(){
 
@@ -19,7 +29,7 @@ console.clear();
 canvas.setAttribute('width', window.innerWidth);
 canvas.setAttribute('height', window.innerHeight);
 
-var rows, cols, wait = 100, size = parseInt(Math.max(window.innerWidth, window.innerHeight) / 300), seed;
+var rows, cols, size = parseInt(Math.max(window.innerWidth, window.innerHeight) / 300);
 var arr = [];
 var narr = [];
 var neighbourCount = [];
@@ -114,10 +124,12 @@ if(seedInput.value == "")
 else
   seed = parseInt(seedInput.value) % 10000000000;
 
-//9631523180
-//1173597190
-//-5325325235
-//4533361035
+origSeed = seed;
+
+// 9631523180
+// 1173597190
+// -5325325235
+// 4533361035
 
 console.log("seed: ", seed);
 seedText.innerHTML = "Seed: " + seed;
@@ -167,6 +179,33 @@ console.log("background color: ", bgR, bgG, bgB);
 console.log("cell color changing values (R,G,B) for the formula \n{255 / (Math.abs(previousNeighbourCount[i][j] - value))}: ", randomR, randomG, randomB);
 console.log("neighbourhood type: 0 - Moore (8), 1 - von Neumann (4): ", type);
 
+function clickFunction (){
+    if(wait == 50){
+      wait = 100;
+      clearInterval(drawLoopInterval);
+      drawLoopInterval = setInterval(draw, wait);
+      return;
+    }
+    if(wait == 100){
+      wait = 200;
+      clearInterval(drawLoopInterval);
+      drawLoopInterval = setInterval(draw, wait);
+      return;
+    }
+    if(wait == 200){
+      wait = 300;
+      clearInterval(drawLoopInterval);
+      drawLoopInterval = setInterval(draw, wait);
+      return;
+    }
+    if(wait == 300){
+      wait = 50;
+      clearInterval(drawLoopInterval);
+      drawLoopInterval = setInterval(draw, wait);
+      return;
+    }
+}
+
 function draw(){
 
     if(end){
@@ -175,6 +214,7 @@ function draw(){
       arr = null;
       narr = null;
       neighbourCount = null;
+      canvas.removeEventListener('click',clickFunction);
       main();
     }
 
@@ -236,24 +276,6 @@ document.addEventListener(
 setup();
 drawLoopInterval = setInterval(draw, wait);
 
-canvas.addEventListener('click', function (){
-
-  switch(wait){
-    case 50:
-      wait = 100;
-      break;
-    case 100:
-      wait = 200;
-      break;
-    case 200:
-      wait = 300;
-      break;
-    default:
-      wait = 50;
-  }
-
-  clearInterval(drawLoopInterval);
-  drawLoopInterval = setInterval(draw, wait);
-});
+canvas.addEventListener('click', clickFunction);
 
 }
