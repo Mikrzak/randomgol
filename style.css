@@ -1,0 +1,35 @@
+body{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#seedText{
+    font-size: xx-large;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    position: absolute;
+    top: 92vh;
+    left: 1vw;
+}
+
+#refreshButton{
+    position: absolute;
+    color: white;
+    background-color: black;
+    width: 6vh;
+    height: 6vh;
+    top: 93vh;
+    left: 15vw;
+}
+
+#seedInput{
+    font-size: xx-large;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    position: absolute;
+    color: white;
+    background-color: black;
+    width: 20vh;
+    height: 4vh;
+    top: 94vh;
+    left: 20vw;
+}
