@@ -1,10 +1,13 @@
 var end = false;
+var drawLoopInterval;
 
 function setEnd(){
   end = true;
 }
 
 function main(){
+
+clearInterval(drawLoopInterval);
 
 var canvas = document.getElementById('myCanvas');
 var seedText = document.getElementById('seedText');
@@ -16,10 +19,11 @@ console.clear();
 canvas.setAttribute('width', window.innerWidth);
 canvas.setAttribute('height', window.innerHeight);
 
-var rows, cols, wait = 100, size = parseInt(Math.max(window.innerWidth, window.innerHeight) / 250), seed;
+var rows, cols, wait = 100, size = parseInt(Math.max(window.innerWidth, window.innerHeight) / 300), seed;
 var arr = [];
 var narr = [];
 var neighbourCount = [];
+var type; //neighbourhood type: 0 - Moore (8), 1 - von Neumann (4)
 
 rows = parseInt(window.innerWidth / size);
 cols = parseInt(window.innerHeight / size);
@@ -68,21 +72,23 @@ function count(row, col, arr){
       if(arr[row][col - 1] == 1)
         counter++;
     }
-    if(row < rows - 1 && col < cols - 1){
-      if(arr[row + 1][col + 1] == 1)
-        counter++;
-    }
-    if(row > 0 && col > 0){
-      if(arr[row - 1][col - 1] == 1)
-        counter++;
-    }
-    if(row < rows - 1 && col > 0){
-      if(arr[row + 1][col - 1] == 1)
-        counter++;
-    }
-    if(row > 0 && col < cols - 1){
-      if(arr[row - 1][col + 1] == 1)
-        counter++;
+    if(type == 0){
+      if(row < rows - 1 && col < cols - 1){
+        if(arr[row + 1][col + 1] == 1)
+          counter++;
+      }
+      if(row > 0 && col > 0){
+        if(arr[row - 1][col - 1] == 1)
+          counter++;
+      }
+      if(row < rows - 1 && col > 0){
+        if(arr[row + 1][col - 1] == 1)
+          counter++;
+      }
+      if(row > 0 && col < cols - 1){
+        if(arr[row - 1][col + 1] == 1)
+          counter++;
+      }
     }
     return counter;
   }
@@ -108,10 +114,13 @@ if(seedInput.value == "")
 else
   seed = parseInt(seedInput.value) % 10000000000;
 
-console.log(parseInt(seedInput.value) % 10000000000);
+//9631523180
+//1173597190
+//-5325325235
+//4533361035
 
 console.log("seed: ", seed);
-seedText.innerHTML = "seed: " + seed;
+seedText.innerHTML = "Seed: " + seed;
 
 var rules0len = seed % 9;
 seed = parseInt(seededRandom(seed) * 10000000000);
@@ -149,13 +158,14 @@ var bgColor = `rgb(
   ${bgB}
   )`;
 
-//4630588262
-//3736973968
+type = seed % 2;
+seed = parseInt(seededRandom(seed) * 10000000000);
 
 console.log("rules for alive cells to stay alive: ", rules[0]);
 console.log("rules for dead cells to become alive: ", rules[1]);
 console.log("background color: ", bgR, bgG, bgB);
 console.log("cell color changing values (R,G,B) for the formula \n{255 / (Math.abs(previousNeighbourCount[i][j] - value))}: ", randomR, randomG, randomB);
+console.log("neighbourhood type: 0 - Moore (8), 1 - von Neumann (4): ", type);
 
 function draw(){
 
@@ -224,7 +234,7 @@ document.addEventListener(
   }, { passive: false } );
 
 setup();
-var drawLoopInterval = setInterval(draw, wait);
+drawLoopInterval = setInterval(draw, wait);
 
 canvas.addEventListener('click', function (){
 
