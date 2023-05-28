@@ -24,6 +24,22 @@ body{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+#copyButton{
+    vertical-align: middle;
+    background-image: url(./326595_content_copy_duplicate_icon.png);
+    background-size: 90%;
+    background-position: right;
+    background-repeat: no-repeat;
+    border-width: 0.5vmin;
+    border-color: black;
+    border-radius: 10%;
+    /* position: absolute; */
+    width: 6vh;
+    height: 6vh;
+    /* top: 93vh;
+    left: 15vw; */
+}
+
 #refreshButton{
     vertical-align: middle;
     background-image: url(./352439_refresh_icon.png);
