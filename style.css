@@ -18,6 +18,42 @@ body{
     left: 1vw;
 }
 
+@keyframes moveInfoIn {
+    from {bottom: -200px;}
+    to {bottom: -30px}
+}
+
+@keyframes moveInfoOut {
+    from {bottom: -30px;}
+    to {bottom: -200px;}
+}
+
+#info{
+    position: fixed;
+    
+    bottom: -200px;
+    right: 0px;
+    background-color: #222222;
+    color: #DDDDDD;
+    font-size: normal;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    white-space: pre-wrap;
+}
+
+#info.animateIn{
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-name: moveInfoIn;
+}
+
+#info.animateOut{
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-name: moveInfoOut;
+}
+
 #seedText{
     /* vertical-align: middle; */
     font-size: xx-large;
