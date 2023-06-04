@@ -4,9 +4,9 @@ var wait, origSeed;
 var info = document.getElementById("info");
 var codeText, bgColorInput, randomRinput, randomGinput, randomBinput, neighbourTypeInput;
 var code, randomR, randomG, randomB, bgColor, bgR, bgG, bgB, rows, cols, size;
-var arr = [];
-var narr = [];
-var neighbourCount = [];
+var arr;
+var narr;
+var neighbourCount;
 var rules = [[],[]];
 
 var colorMode, neighbourType;
@@ -38,6 +38,21 @@ function shuffleArr(){
     }
   }
 
+}
+
+function generateRectArr(){
+
+  for(let i = 0; i < rows; i++){
+    for(let j = 0; j < cols; j++){
+      if((i > rows * 0.2 && i < rows * 0.8) && (j > cols * 0.2 && j < cols * 0.8))        //1
+        arr[i][j] = 1;        //1
+      else              //1
+        arr[i][j] = 0;        //1
+    narr[i][j] = arr[i][j];
+    }
+  }
+
+  moveInfo();
 }
 
 function moveInfo(){
@@ -85,7 +100,7 @@ function readCode(){
     s = RuleStrBin;
     RuleStrBin = '0' + s;
   }
-  console.log(RuleStrBin);
+  //console.log(RuleStrBin);
 
   rules = [[],[]];
 
@@ -184,6 +199,10 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 function main(){
+
+  arr = [];
+  narr = [];
+  neighbourCount = [];
 
 clearInterval(drawLoopInterval);
 console.clear();
@@ -347,11 +366,11 @@ for(var i = 0; i <= rules1len; i++){
   seed = parseInt(seededRandom(seed) * 10000000000);
 }
 
-randomR = seed % 10;
+randomR = seed % 20;
 seed = parseInt(seededRandom(seed) * 10000000000);
-randomG = seed % 10;
+randomG = seed % 20;
 seed = parseInt(seededRandom(seed) * 10000000000);
-randomB = seed % 10;
+randomB = seed % 20;
 seed = parseInt(seededRandom(seed) * 10000000000);
 //var bgR = parseInt(randomR * 28.33), bgG = parseInt(randomG * 28.33), bgB = parseInt(randomB * 28.33);
 bgR = seed % 255;
@@ -456,59 +475,63 @@ function clickFunction (){
     }
 }
 
+var lastCalledTime;
+
 function draw(){
 
-    if(end){
-      clearInterval(drawLoopInterval);
-      end = false;
-      arr = null;
-      narr = null;
-      neighbourCount = null;
-      canvas.removeEventListener('click',clickFunction);
-      main();
-    }
+  lastCalledTime = Date.now();
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if(end){
+    clearInterval(drawLoopInterval);
+    end = false;
+    arr = null;
+    narr = null;
+    neighbourCount = null;
+    canvas.removeEventListener('click',clickFunction);
+    main();
+  }
 
-    for(let i = 0; i < rows; i++){
-      for(let j = 0; j < cols; j++){
-        var score = count(i,j,arr);
-        neighbourCount[i][j] = score;
-        narr[i][j] = 0;
-        if(arr[i][j] == 1){
-          for(let x = 0; x < rules0len; x++)
-            if(score == rules[0][x])
-              narr[i][j] = 1;
-        }
-        else{
-          for(let x = 0; x < rules1len; x++)
-            if(score == rules[1][x])
-              narr[i][j] = 1;
-        }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for(let i = 0; i < rows; i++){
+    for(let j = 0; j < cols; j++){
+      var score = count(i,j,arr);
+      neighbourCount[i][j] = score;
+      narr[i][j] = 0;
+      if(arr[i][j] == 1){
+        for(let x = 0; x < rules[0].length; x++)
+          if(score == rules[0][x])
+            narr[i][j] = 1;
       }
-    } 
-
-    for(let i = 0; i < rows; i++){
-      //console.log((seed % neighbourCount[i][0]))
-      for(let j = 0; j < cols; j++){
-        if(arr[i][j] == 1){
-          if(!colorMode)
-          ctx.fillStyle = `rgb(
-            ${255 / (Math.abs(neighbourCount[i][j] - randomR))},
-            ${255 / (Math.abs(neighbourCount[i][j] - randomG))},
-            ${255 / (Math.abs(neighbourCount[i][j] - randomB))}
-            )`;
-          else if(colorMode)
-            ctx.fillStyle = `rgb(0,0,0)`;
-        }
-        else
-          ctx.fillStyle = bgColor;
-        ctx.fillRect(i * size, j * size, size, size);
-        arr[i][j] = narr[i][j];
+      else{
+        for(let x = 0; x < rules[1].length; x++)
+          if(score == rules[1][x])
+            narr[i][j] = 1;
       }
-
     }
-  
+  } 
+
+  for(let i = 0; i < rows; i++){
+    //console.log((seed % neighbourCount[i][0]))
+    for(let j = 0; j < cols; j++){
+      if(arr[i][j] == 1){
+        if(!colorMode)
+        ctx.fillStyle = `rgb(
+          ${255 / (Math.abs(neighbourCount[i][j] - randomR))},
+          ${255 / (Math.abs(neighbourCount[i][j] - randomG))},
+          ${255 / (Math.abs(neighbourCount[i][j] - randomB))}
+          )`;
+        else if(colorMode)
+          ctx.fillStyle = `rgb(0,0,0)`;
+      }
+      else
+        ctx.fillStyle = bgColor;
+      ctx.fillRect(i * size, j * size, size, size);
+      arr[i][j] = narr[i][j];
+    }
+  }
+
+  //console.log(1/((Date.now() - lastCalledTime)/1000));
 }
 
 //https://stackoverflow.com/questions/27116221/prevent-zoom-cross-browser
