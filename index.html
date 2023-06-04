@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pol">
+<head>
+    <meta charset="UTF-8">
+    <title>Random GOL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <div id="interface">
+        <button id="refreshButton" onclick="setEnd()"></button>
+        <input id="seedInput" type="number" onchange="limitMaxLength(this,10)"></input>
+        <button id="copyButton" onclick="copySeed()"></button>
+        <p id="seedText"></p>
+    </div>
+    <div id="info">
+        <button id="upButton" onclick="moveInfo()"></button>
+        <fieldset id="aliveRuleInput" onchange="generateCode()">
+            <legend>cell neighbour amount to stay alive</legend>
+            <input type="checkbox" id="alive0"><label id="checkboxLabel">0</label></input>
+            <input type="checkbox" id="alive1"><label id="checkboxLabel">1</label></input>
+            <input type="checkbox" id="alive2"><label id="checkboxLabel">2</label></input>
+            <input type="checkbox" id="alive3"><label id="checkboxLabel">3</label></input>
+            <input type="checkbox" id="alive4"><label id="checkboxLabel">4</label></input>
+            <input type="checkbox" id="alive5"><label id="checkboxLabel">5</label></input>
+            <input type="checkbox" id="alive6"><label id="checkboxLabel">6</label></input>
+            <input type="checkbox" id="alive7"><label id="checkboxLabel">7</label></input>
+            <input type="checkbox" id="alive8"><label id="checkboxLabel">8</label></input>
+        </fieldset>
+        <fieldset id="deadRuleInput" onchange="generateCode()">
+            <legend>cell neighbour amount to become alive</legend>
+            <input type="checkbox" id="dead0"><label id="checkboxLabel">0</label></input>
+            <input type="checkbox" id="dead1"><label id="checkboxLabel">1</label></input>
+            <input type="checkbox" id="dead2"><label id="checkboxLabel">2</label></input>
+            <input type="checkbox" id="dead3"><label id="checkboxLabel">3</label></input>
+            <input type="checkbox" id="dead4"><label id="checkboxLabel">4</label></input>
+            <input type="checkbox" id="dead5"><label id="checkboxLabel">5</label></input>
+            <input type="checkbox" id="dead6"><label id="checkboxLabel">6</label></input>
+            <input type="checkbox" id="dead7"><label id="checkboxLabel">7</label></input>
+            <input type="checkbox" id="dead8"><label id="checkboxLabel">8</label></input>
+        </fieldset>
+        <input type="color" style="width:38px;" id="bgColorInput" oninput="generateCode()"> background color</input>
+        <input type="number" onchange="limitMaxLength(this,2,true,10)" style="width:30px;" id="randomRinput" oninput="generateCode()"> random added red value (0-10)</input>
+        <input type="number" onchange="limitMaxLength(this,2,true,10)" style="width:30px;" id="randomGinput" oninput="generateCode()"> random added green value (0-10)</input>
+        <input type="number" onchange="limitMaxLength(this,2,true,10)" style="width:30px;" id="randomBinput" oninput="generateCode()"> random added blue value (0-10)</input>
+        <input type="checkbox" id="neighbourTypeInput" onchange="generateCode()"><label id="colorModeLabel">neighbourhood mode (off: 8, on: 4)</label></input>
+        <input type="checkbox" id="colorModeInput" onchange="generateCode()"><label id="colorModeLabel">solid color mode</label></input>
+        <button id="copyButton2" onclick="copyCode()"></button>
+        <p id="code">generation code: </p>
+        <input type="text" id="codeInput" oninput="generateCode(true)"><label id="codeInputLabel"></label></input>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
