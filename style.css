@@ -19,18 +19,18 @@ body{
 }
 
 @keyframes moveInfoIn {
-    from {bottom: -620px;}
+    from {bottom: -600px;}
     to {bottom: 0px}
 }
 
 @keyframes moveInfoOut {
     from {bottom: 0px;}
-    to {bottom: -620px;}
+    to {bottom: -600px;}
 }
 
 #info{
     position: fixed;
-    bottom: -620px;
+    bottom: -600px;
     right: 0px;
     background-color: #222222;
     color: #DDDDDD;
@@ -93,7 +93,8 @@ input[type='checkbox']{
     background-size: 20%;
     background-position: right;
     background-repeat: no-repeat;
-    border-width: 0px;
+    border-width: 5px;
+    border-bottom-width: 0px;
     background-color: white;
     background-position: center;
     margin-top: 0;
@@ -120,9 +121,19 @@ input[type='checkbox']{
     left: 15vw; */
 }
 
+#infoButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #copyButton2{
     /* vertical-align: middle; */
-    position: absolute;
+    /* position: absolute; */
+    margin: 10px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+    vertical-align: middle;
     background-image: url(./326595_content_copy_duplicate_icon.png);
     background-size: 90%;
     background-position: right;
@@ -131,17 +142,21 @@ input[type='checkbox']{
     border-color: black;
     border-radius: 10%;
     /* position: absolute; */
-    width: 4vh;
-    height: 4vh;
+    width: 40px;
+    height: 40px;
     /* top: 93vh;
     left: 15vw; */
 }
 
 #shuffleButton{
     /* vertical-align: middle; */
-    position: absolute;
-    left: 90px;
-    bottom: 149px;
+    /* position: absolute; */
+    /* left: 90px; */
+    /* bottom: 149px; */
+    margin: 10px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+    vertical-align: middle;
     background-image: url(./8666737_shuffle_icon.png);
     background-size: 90%;
     background-position: right;
@@ -150,17 +165,21 @@ input[type='checkbox']{
     border-color: black;
     border-radius: 10%;
     /* position: absolute; */
-    width: 4vh;
-    height: 4vh;
+    width: 40px;
+    height: 40px;
     /* top: 93vh;
     left: 15vw; */
 }
 
 #rectButton{
     /* vertical-align: middle; */
-    position: absolute;
+    /* position: absolute;
     left: 140px;
-    bottom: 149px;
+    bottom: 149px; */
+    margin: 10px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+    vertical-align: middle;
     background-image: url(./9035180_square_icon.png);
     background-size: 90%;
     background-position: right;
@@ -170,8 +189,8 @@ input[type='checkbox']{
     border-radius: 10%;
     background-position: center;
     /* position: absolute; */
-    width: 4vh;
-    height: 4vh;
+    width: 40px;
+    height: 40px;
     /* top: 93vh;
     left: 15vw; */
 }
