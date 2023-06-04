@@ -7,7 +7,6 @@ var code, randomR, randomG, randomB, bgColor, bgR, bgG, bgB, rows, cols, size;
 var arr;
 var narr;
 var neighbourCount;
-var rules = [[],[]];
 
 var colorMode, neighbourType;
 
@@ -200,9 +199,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function main(){
 
-  arr = [];
-  narr = [];
-  neighbourCount = [];
+arr = [];
+narr = [];
+neighbourCount = [];
+rules = [[],[]];
 
 clearInterval(drawLoopInterval);
 console.clear();
@@ -210,7 +210,7 @@ console.clear();
 var canvas = document.getElementById('myCanvas');
 var seedText = document.getElementById('seedText');
 var infoText = document.getElementById('infoText');
-var ctx = canvas.getContext('2d');
+var ctx = canvas.getContext('2d', { alpha: false });
 var seedInput = document.getElementById('seedInput');
 
 codeText = document.getElementById('code');
@@ -247,14 +247,14 @@ var codeInput = document.getElementById('codeInput');
 canvas.setAttribute('width', window.innerWidth);
 canvas.setAttribute('height', window.innerHeight);
 
-size = parseInt(Math.ceil(Math.max(window.innerWidth, window.innerHeight) / 350));
+size = parseInt(Math.ceil(Math.max(window.innerWidth, window.innerHeight) / 500));
 
 var type; //neighbourhood type: 0 - Moore (8), 1 - von Neumann (4)
 
 //var cellsToCheck = [];
 
-rows = parseInt(window.innerWidth / size);
-cols = parseInt(window.innerHeight / size);
+rows = parseInt(Math.ceil(window.innerWidth / size));
+cols = parseInt(Math.ceil(window.innerHeight / size));
 
 for(let i = 0; i < rows; i++){
     arr.push([]);
@@ -409,25 +409,25 @@ seed = parseInt(seededRandom(seed) * 10000000000);
 // console.log("cell color changing values (R,G,B) for the formula \n{255 / (Math.abs(previousNeighbourCount[i][j] - value))}: ", randomR, randomG, randomB);
 // console.log("neighbourhood type: 0 - Moore (8), 1 - von Neumann (4): ", type);
 
-if(rules[0].includes(0)) alive0.checked = true;
-if(rules[0].includes(1)) alive1.checked = true;
-if(rules[0].includes(2)) alive2.checked = true;
-if(rules[0].includes(3)) alive3.checked = true;
-if(rules[0].includes(4)) alive4.checked = true;
-if(rules[0].includes(5)) alive5.checked = true;
-if(rules[0].includes(6)) alive6.checked = true;
-if(rules[0].includes(7)) alive7.checked = true;
-if(rules[0].includes(8)) alive8.checked = true;
+if(rules[0].includes(0)) alive0.checked = true;   if(!rules[0].includes(0)) alive0.checked = false;
+if(rules[0].includes(1)) alive1.checked = true;   if(!rules[0].includes(1)) alive1.checked = false;
+if(rules[0].includes(2)) alive2.checked = true;   if(!rules[0].includes(2)) alive2.checked = false;
+if(rules[0].includes(3)) alive3.checked = true;   if(!rules[0].includes(3)) alive3.checked = false;
+if(rules[0].includes(4)) alive4.checked = true;   if(!rules[0].includes(4)) alive4.checked = false;
+if(rules[0].includes(5)) alive5.checked = true;   if(!rules[0].includes(5)) alive5.checked = false;
+if(rules[0].includes(6)) alive6.checked = true;   if(!rules[0].includes(6)) alive6.checked = false;
+if(rules[0].includes(7)) alive7.checked = true;   if(!rules[0].includes(7)) alive7.checked = false;
+if(rules[0].includes(8)) alive8.checked = true;   if(!rules[0].includes(8)) alive8.checked = false;
 
-if(rules[1].includes(0)) dead0.checked = true;
-if(rules[1].includes(1)) dead1.checked = true;
-if(rules[1].includes(2)) dead2.checked = true;
-if(rules[1].includes(3)) dead3.checked = true;
-if(rules[1].includes(4)) dead4.checked = true;
-if(rules[1].includes(5)) dead5.checked = true;
-if(rules[1].includes(6)) dead6.checked = true;
-if(rules[1].includes(7)) dead7.checked = true;
-if(rules[1].includes(8)) dead8.checked = true;
+if(rules[1].includes(0)) dead0.checked = true; if(!rules[1].includes(0)) dead0.checked = false;
+if(rules[1].includes(1)) dead1.checked = true; if(!rules[1].includes(1)) dead1.checked = false;
+if(rules[1].includes(2)) dead2.checked = true; if(!rules[1].includes(2)) dead2.checked = false;
+if(rules[1].includes(3)) dead3.checked = true; if(!rules[1].includes(3)) dead3.checked = false;
+if(rules[1].includes(4)) dead4.checked = true; if(!rules[1].includes(4)) dead4.checked = false;
+if(rules[1].includes(5)) dead5.checked = true; if(!rules[1].includes(5)) dead5.checked = false;
+if(rules[1].includes(6)) dead6.checked = true; if(!rules[1].includes(6)) dead6.checked = false;
+if(rules[1].includes(7)) dead7.checked = true; if(!rules[1].includes(7)) dead7.checked = false;
+if(rules[1].includes(8)) dead8.checked = true; if(!rules[1].includes(8)) dead8.checked = false;
 
 var bgR16 = bgR.toString(16).toUpperCase();
 if(bgR16.length < 2) bgR16 += '0';
@@ -491,7 +491,9 @@ function draw(){
     main();
   }
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = bgColor;
+  //ctx.clear
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   for(let i = 0; i < rows; i++){
     for(let j = 0; j < cols; j++){
@@ -515,18 +517,17 @@ function draw(){
     //console.log((seed % neighbourCount[i][0]))
     for(let j = 0; j < cols; j++){
       if(arr[i][j] == 1){
+
         if(!colorMode)
-        ctx.fillStyle = `rgb(
-          ${255 / (Math.abs(neighbourCount[i][j] - randomR))},
-          ${255 / (Math.abs(neighbourCount[i][j] - randomG))},
-          ${255 / (Math.abs(neighbourCount[i][j] - randomB))}
+          ctx.fillStyle = `rgb(
+          ${parseInt(255 / (Math.abs(neighbourCount[i][j] - randomR)))},
+          ${parseInt(255 / (Math.abs(neighbourCount[i][j] - randomG)))},
+          ${parseInt(255 / (Math.abs(neighbourCount[i][j] - randomB)))}
           )`;
         else if(colorMode)
           ctx.fillStyle = `rgb(0,0,0)`;
+        ctx.fillRect(i * size, j * size, size, size);
       }
-      else
-        ctx.fillStyle = bgColor;
-      ctx.fillRect(i * size, j * size, size, size);
       arr[i][j] = narr[i][j];
     }
   }
