@@ -45,9 +45,11 @@
         <input type="number" onchange="limitMaxLength(this,2,true,20)" style="width:30px;" id="randomBinput" oninput="generateCode()"> random added blue value (0-10)</input>
         <input type="checkbox" id="neighbourTypeInput" onchange="generateCode()"><label id="colorModeLabel">neighbourhood mode (off: 8, on: 4)</label></input>
         <input type="checkbox" id="colorModeInput" onchange="generateCode()"><label id="colorModeLabel">solid color mode</label></input>
-        <button id="copyButton2" onclick="copyCode()"></button>
-        <button id="shuffleButton" onclick="shuffleArr()"></button>
-        <button id="rectButton" onclick="generateRectArr()"></button>
+        <div id="infoButtons">
+            <button id="copyButton2" onclick="copyCode()"></button>
+            <button id="shuffleButton" onclick="shuffleArr()"></button>
+            <button id="rectButton" onclick="generateRectArr()"></button>
+        </div>
         <p id="code">generation code: </p>
         <input type="text" id="codeInput" oninput="generateCode(true)"><label id="codeInputLabel"></label></input>
     </div>
