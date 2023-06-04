@@ -2,10 +2,13 @@ var end = false;
 var drawLoopInterval;
 var wait, origSeed;
 var info = document.getElementById("info");
-var codeText, bgColorInput, randomRinput, randomGinput, randomBinput;
-var code, randomR, randomG, randomB, bgColor, bgR, bgG, bgB;
-
+var codeText, bgColorInput, randomRinput, randomGinput, randomBinput, neighbourTypeInput;
+var code, randomR, randomG, randomB, bgColor, bgR, bgG, bgB, rows, cols, size;
+var arr = [];
+var narr = [];
+var neighbourCount = [];
 var rules = [[],[]];
+
 var colorMode, neighbourType;
 
 //https://stackoverflow.com/questions/246801/how-can-you-encode-a-string-to-base64-in-javascript
@@ -21,6 +24,20 @@ function copySeed(){
 
 function copyCode(){
   navigator.clipboard.writeText(origCode);
+}
+
+function shuffleArr(){
+
+  for(let i = 0; i < rows; i++){
+    for(let j = 0; j < cols; j++){
+      if(Math.floor(Math.random() * 2) > 0)        //1
+        arr[i][j] = 1;        //1
+      else              //1
+        arr[i][j] = 0;        //1
+    narr[i][j] = arr[i][j];
+    }
+  }
+
 }
 
 function moveInfo(){
@@ -205,16 +222,14 @@ var dead7 = document.getElementById('dead7');
 var dead8 = document.getElementById('dead8');
 
 var colorModeInput = document.getElementById('colorMode');
-var neighbourTypeInput = document.getElementById('colorMode');
+neighbourTypeInput = document.getElementById('neighbourTypeInput');
 var codeInput = document.getElementById('codeInput');
 
 canvas.setAttribute('width', window.innerWidth);
 canvas.setAttribute('height', window.innerHeight);
 
-var rows, cols, size = parseInt(Math.ceil(Math.max(window.innerWidth, window.innerHeight) / 350));
-var arr = [];
-var narr = [];
-var neighbourCount = [];
+size = parseInt(Math.ceil(Math.max(window.innerWidth, window.innerHeight) / 350));
+
 var type; //neighbourhood type: 0 - Moore (8), 1 - von Neumann (4)
 
 //var cellsToCheck = [];
@@ -409,6 +424,8 @@ bgColorInput.value = "#" + bgR16 + bgG16 + bgB16;
 randomRinput.value = randomR;
 randomGinput.value = randomG;
 randomBinput.value = randomB;
+
+neighbourTypeInput.checked = !!type;
 
 generateCode();
 
