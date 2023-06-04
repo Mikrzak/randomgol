@@ -40,13 +40,14 @@
             <input type="checkbox" id="dead8"><label id="checkboxLabel">8</label></input>
         </fieldset>
         <input type="color" style="width:38px;" id="bgColorInput" oninput="generateCode()"> background color</input>
-        <input type="number" onchange="limitMaxLength(this,2,true,10)" style="width:30px;" id="randomRinput" oninput="generateCode()"> random added red value (0-10)</input>
-        <input type="number" onchange="limitMaxLength(this,2,true,10)" style="width:30px;" id="randomGinput" oninput="generateCode()"> random added green value (0-10)</input>
-        <input type="number" onchange="limitMaxLength(this,2,true,10)" style="width:30px;" id="randomBinput" oninput="generateCode()"> random added blue value (0-10)</input>
+        <input type="number" onchange="limitMaxLength(this,2,true,20)" style="width:30px;" id="randomRinput" oninput="generateCode()"> random added red value (0-10)</input>
+        <input type="number" onchange="limitMaxLength(this,2,true,20)" style="width:30px;" id="randomGinput" oninput="generateCode()"> random added green value (0-10)</input>
+        <input type="number" onchange="limitMaxLength(this,2,true,20)" style="width:30px;" id="randomBinput" oninput="generateCode()"> random added blue value (0-10)</input>
         <input type="checkbox" id="neighbourTypeInput" onchange="generateCode()"><label id="colorModeLabel">neighbourhood mode (off: 8, on: 4)</label></input>
         <input type="checkbox" id="colorModeInput" onchange="generateCode()"><label id="colorModeLabel">solid color mode</label></input>
         <button id="copyButton2" onclick="copyCode()"></button>
         <button id="shuffleButton" onclick="shuffleArr()"></button>
+        <button id="rectButton" onclick="generateRectArr()"></button>
         <p id="code">generation code: </p>
         <input type="text" id="codeInput" oninput="generateCode(true)"><label id="codeInputLabel"></label></input>
     </div>
